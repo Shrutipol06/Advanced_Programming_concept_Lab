@@ -1,52 +1,58 @@
 import math
 
-# 1. Function to calculate Euclidean distance between two points: (x1, y1) and (x2, y2)
-def calculate_distance(point1, point2):
-    x1, y1 = point1
-    x2, y2 = point2
-    # Distance formula: sqrt((x2 - x1)^2 + (y2 - y1)^2)
-    distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    return distance
+# Function to calculate distance between two points
+def distance(p1, p2):
+    x1 = p1[0]
+    y1 = p1[1]
 
-# 2. Function to find the point farthest from the origin (0, 0)
-def find_farthest_from_origin(points_list):
-    if not points_list:
-        return None
-    
-    origin = (0, 0)
-    farthest_point = points_list[0]
-    max_distance = calculate_distance(origin, farthest_point)
-    
-    for point in points_list[1:]:
-        current_distance = calculate_distance(origin, point)
-        if current_distance > max_distance:
-            max_distance = current_distance
-            farthest_point = point
-            
-    return farthest_point, max_distance
+    x2 = p2[0]
+    y2 = p2[1]
+
+    d = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
+    return d
 
 
-# --- DEMO / MAIN PROGRAM ---
+# Function to find farthest point from origin
+def farthest_point(points):
+    farthest = points[0]
 
-# List of 2D points represented as (x, y) tuples
-points = [
-    (1, 2),
-    (5, -3),
-    (-8, 6),
-    (0, 4),
-    (7, 1)
-]
+    max_distance = distance(farthest, (0, 0))
 
-print("List of points:", points)
+    for point in points:
+        d = distance(point, (0, 0))
 
-# Task 1: Calculate distance between two specific points
-p1 = points[0]  # (1, 2)
-p2 = points[1]  # (5, -3)
-dist_between_p1_p2 = calculate_distance(p1, p2)
+        if d > max_distance:
+            max_distance = d
+            farthest = point
 
-print(f"\n1. Distance between {p1} and {p2}: {dist_between_p1_p2:.2f}")
+    return farthest
 
-# Task 2: Find the point farthest from the origin (0, 0)
-farthest, distance_from_origin = find_farthest_from_origin(points)
 
-print(f"2. Farthest point from (0, 0) is {farthest} with a distance of {distance_from_origin:.2f}")
+# Take number of points
+n = int(input("Enter number of points: "))
+
+points = []
+
+# Take points as tuples
+for i in range(n):
+    x = int(input("Enter x coordinate: "))
+    y = int(input("Enter y coordinate: "))
+
+    point = (x, y)
+    points.append(point)
+
+
+# Display points
+print("\nPoints:", points)
+
+
+# Take two points for distance calculation
+p1 = points[int(input("Enter index of first point: "))]
+p2 = points[int(input("Enter index of second point: "))]
+
+print("Distance between points:", distance(p1, p2))
+
+
+# Find farthest point
+print("Farthest point from origin:", farthest_point(points))

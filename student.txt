@@ -1,0 +1,5 @@
+Hello Python
+This is my file.
+This line is added using append mode.
+New data added using r+.
+This is added using a+ mode.
